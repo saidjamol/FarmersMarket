@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login/Registration</title>
+	{% load staticfiles%}
+	{% include './header.html' %}
+	<style>
+	   body{
+		   background-image: url({% static "login_reg_app/img/farmers.jpg" %});
+		   background-size:cover;
+		   background-repeat: no-repeat;
+	   }
+	</style>
+</head>
+<body class="img-responsive">
+	<!-- <video autoplay loop muted id="background">
+		<source src={% static "login_reg_app/video/kitchen.mp4" %} type="video/mp4">
+	</video> -->
+	<script>
+		$(window).scroll(function() {
+			$('#animatedElement').each(function(){
+			var imagePos = $(this).offset().top;
+
+			var topOfWindow = $(window).scrollTop();
+				if (imagePos < topOfWindow+400) {
+					$(this).addClass("slideUp");
+				}
+			});
+		});
+	</script>
+
+	<div class="container " style="color: white;font-family: Papyrus, fantasy;">
+    <div class="page-header">
+      <h1 class='slideDown' style="text-shadow: 1px 1px;">The Fresh Farm World!</h1>
+      <br>
+    </div>
+    <br>
+		<div class='col-xs-5 well' style="background: rgba(46, 51, 56, 0.5);">
+			<h4>Register</h4>
+      <br>
+			<form action="/register" method="POST">
+				{% csrf_token %}
+				<div class='form-group'>
+					{% csrf_token %}
+
+						<label for='name'> Name:
+							{% csrf_token %}
+							{% if messages %}
+							  {% for message in messages %}
+								 {% if 'regis_name' in message.tags %}
+											 	<span class="error" style="color:yellow";>{{ message }}</span>
+								{%endif%}
+								{% endfor %}
+							 {% endif %}
+            </label>
+						<input class="form-control" type="text" name="name"/>
+						{% csrf_token %}
+
+				</div>
+				<div class='form-group'>
+					{% csrf_token %}
+
+						<label for='uname'>Username:
+
+							{% if messages %}
+							  {% for message in messages %}
+								 {% if 'regis_uname' in message.tags %}
+											 	<span class="error" style="color:yellow";>{{ message }}</span>
+								{%endif%}
+								{% endfor %}
+							 {% endif %}
+            </label>
+						<input class="form-control" type="text" name="uname"/>
+				</div>
+				<div class='form-group'>
+					{% csrf_token %}
+
+						<label for='password'>Password (8+ characters):
+							{% csrf_token %}
+						{% if messages %}
+							{% for message in messages %}
+							 {% if 'regis_pwdshort' in message.tags %}
+											<span class="error" style="color:yellow";>{{ message }}</span>
+							{%endif%}
+							{% endfor %}
+						 {% endif %}
+            </label>
+						<input class="form-control" type="password" name="password"/>
+				</div>
+				<div class='form-group'>
+					{% csrf_token %}
+
+						<label for='passwordConfirm'>Confirm Password:
+							{% csrf_token %}
+							{% if messages %}
+							  {% for message in messages %}
+								 {% if 'regis_pwdmatch' in message.tags %}
+											 	<span class="error" style="color:yellow";>{{ message }}</span>
+								{%endif%}
+								{% endfor %}
+							 {% endif %}
+            </label>
+						<input class="form-control " type="password" name="confirm_pw"/>
+				</div>
+						<div class='form-group'>
+							{% csrf_token %}
+
+							<input class='btn btn-success pull-right' type="submit" value="Register" role='button'/>
+						</div>
+			</form>
+		</div>
+
+    <div class='col-xs-5 col-xs-offset-2 well' style="background: rgba(46, 51, 56, 0.5);">
+			<h4>Log In</h4>
+      <br>
+			<form action="/login" method="post">
+				{% csrf_token %}
+				{% if messages %}
+					{% for message in messages %}
+					 {% if 'login' in message.tags %}
+									<span class="error" style="color:yellow";>{{ message }}</span><br />
+					{%endif%}
+					{% endfor %}
+				 {% endif %}
+				<div class='form-group'>
+					{% csrf_token %}
+
+						<label>Username:{% csrf_token %}</label>
+						<input class="form-control" type="text" name="uname" />
+				</div>
+				<div class='form-group'>
+					{% csrf_token %}
+
+						<label>Password:
+							{% csrf_token %}
+            </label>
+						<input class="form-control" type="password" name="password" />
+				</div>
+				<div class='form-group'>
+					{% csrf_token %}
+
+					<input class='btn btn-success pull-right' type="submit" value="Login" role='button'/>
+				</div>
+			</form>
+		</div>
+</div> <!-- end of container -->
+<script>
+$('#animatedElement').click(function() {
+	$(this).addClass("slideUp");
+});
+</script>
+</body>
+
+<footer class="img-responsive">
+<div class="container footer col-xs-12 col-xs-offset-2 expandOpen" style="color: white; padding:20px;">
+<center>
+<span style="margin:20px;"><a href="https://www.yelp.com/search?find_desc=Farmers+Market&find_loc=San+Jose%2C+CA&ns=1"><i class="fa fa-yelp fa-4x bounce"></i></a></span>
+<span style="margin:20px;"><a href="https://www.facebook.com/TheFreshFarmMarkets/" class="fa" title="Facebook"><i class="fa fa-facebook fa-4x bounce"></i></a></span>
+<span style="margin:20px;"><a href="https://twitter.com/The_Fresh_Farm/"><i class="fa fa-twitter fa-4x bounce"></i></i></a></span>
+<span style="margin:20px;"><a href="https://www.instagram.com/the.fresh.farm.markets/"><i class="fa fa-instagram fa-4x bounce"></i></i></a></span>
+</center>
+</div>
+</footer>
+</html>

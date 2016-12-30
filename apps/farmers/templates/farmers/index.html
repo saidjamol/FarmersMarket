@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome Page</title>
+         {% load staticfiles %}
+         <script src = "{% static 'farmers/js/farket.js' %}"></script>
+         <link rel="stylesheet" href="{% static 'farmers/css/main.css' %}">
+         {% include '../login_reg_app/header.html' %}
+         <!-- Javascript -->
+         <script type="text/javascript">
+             $(document).ready(function() {
+                 $("#zipbutton").click(function() {
+                     findMarkets($("input[name='zip']").val());
+                 })
+                 $("#zipform").submit(function(event) {
+                     event.preventDefault();
+                     findMarkets($("input[name='zip']").val());
+                 })
+                 $("#location").click(function() {
+                     $("#map").addClass("loading");
+                     if(currentLocation[1] == null) {
+                         getLocation(findMarkets);
+                     }
+                     else {
+                         findMarkets(currentLocation[1]);
+                     }
+                 })
+             })
+         </script>
+         <style>
+            body{
+                background-image: url({% static "farmers/img/fancy.jpg" %});
+                background-size:cover;
+                background-repeat: no-repeat;
+            }
+         </style>
+    </head>
+    <body>
+        <script>
+        $(window).scroll(function() {
+        $('#animatedElement').each(function(){
+        var imagePos = $(this).offset().top;
+        var topOfWindow = $(window).scrollTop();
+        if (imagePos < topOfWindow+400) {
+        $(this).addClass("slideUp");
+        }
+        });
+        });
+        </script>
+
+        <div class="container" style="background: rgba(46, 51, 56, 0.5);">
+
+
+        <div style="color:#fff;margin-top: 30px;">
+          <h1>Welcome to The Farm Fresh World!</h1>
+        </div>
+        <div style="color:#fff;">
+          <p class="well"style="border:solid white;background: rgba(46, 51, 56, 0.5);margin-top:20px; font-size: 30px; text-align: center;">
+        If you want to view the Farmers' Markets nearby, click on the Current Location button, or type in your preferred Zip Code!
+          </p>
+        </div>
+
+        <div style="margin-top:60px;">
+            <div class="col-xs-10 col-xs-offset-2" style="margin-top:20px;margin-bottom:30px;padding-left:30px;">
+                <div class="col-xs-2">
+                  <input id = "location" class='btn btn-success' type="button" name="location" value="Use Current Location" role='button'/>
+                </div>
+                <div class="col-xs-2" style="margin-left:60px;text-align:center;">
+                  <label style="color:#fff;"> OR </label>
+                </div>
+                <div class="col-xs-6">
+                    <!-- I opted for a form going nowhere and attaching submit listener rather than just have a textbox with listener for the enter key -->
+                    <form id = "zipform" class="" method="post">
+                      <label for="zipcode" style="color:#fff;margin-right:10px;">Zip Code:</label>
+                      <input id = "zipcode" type="text" name="zip" value="">
+                      <input id = "zipbutton" class='btn btn-success' type="button" value="Submit" role='button'/>
+                    </form>
+                </div>
+            </div>
+            <script>
+            $('#animatedElement').click(function() {
+            $(this).addClass("slideUp");
+            });
+            </script>
+        </div>
+        <div id="holder">
+            <!-- <div class="overlay standard hidden">&nbsp</div> -->
+            <div id="map" style="width:100%;height:500px;background: rgba(46, 51, 56, 0.2);" >
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoKsC7dmG1HXoMYmCH7qyjRMdE1PT1rPc&callback=myMap"></script>
+            </div>
+        </div>
+            <script>
+            $('#animatedElement').click(function() {
+            	$(this).addClass("slideUp");
+            });
+            </script>
+        </div>
+        <div style="color:#fff;">
+          <p class="well"style="border:solid white;background: rgba(46, 51, 56, 0.5);margin:20px auto; font-size: 30px; text-align: center; width:600px;">
+        Get the driving directions if needed!
+          </p>
+        </div>
+    </div>
+    </body>
+</html>
+
+
+<form class="" action="index.html" method="post">
+    <input type="hidden" name="name" value="">
+    <input type="submit" name="name" value="">
+</form>
